@@ -25,6 +25,11 @@
     <PackageReference Include="Microsoft.AspNetCore.AzureAppServices.HostingStartup" Version="6.0.6" />
     <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.17.0" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="AuthKey_46Z5U589KU.p8">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Target Name="AddGeneratedContentItems" BeforeTargets="AssignTargetPaths">
     <ItemGroup>
       <Content Include="*.p8" CopyToPublishDirectory="PreserveNewest" Exclude="$(DefaultItemExcludes)" />
