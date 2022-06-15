@@ -11,18 +11,15 @@ namespace MartinCostello.SignInWithApple.Controllers;
 public class TestController:  ControllerBase
 {
     [AllowAnonymous]
-    [HttpGet("GetInt")]
-    public string GetInt()
+    [HttpGet("Hello")]
+    public string Hello()
     {
-        return $"{++_call}";
+        return "Hello Stranger!";
     }
 
-    [HttpGet("GetStr")]
-    public string GetStr()
+    [HttpGet("Hi")]
+    public string Hi()
     {
-        _str += " *";
-        return _str;
+        return "Hi man!";
     }
-    private static string _str ="*";
-    private static int _call;
 }

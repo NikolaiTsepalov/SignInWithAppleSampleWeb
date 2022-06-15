@@ -7,16 +7,6 @@ using System.Threading.Tasks;
 namespace SignInWithAppleXamarin.Services
 {
     [Serializable]
-    public class NoInternetException : Exception
-    {
-        public NoInternetException()
-        {
-        }
-        protected NoInternetException(System.Runtime.Serialization.SerializationInfo serializationInfo, System.Runtime.Serialization.StreamingContext streamingContext)
-        {
-        }
-    }
-
     public sealed class RequestProvider : IRequestProvider, IDisposable
     {
         private RequestProvider()
@@ -27,11 +17,10 @@ namespace SignInWithAppleXamarin.Services
         private static readonly Lazy<RequestProvider> Lazy =
             new Lazy<RequestProvider>(() => new RequestProvider(), true);
 
-        public async Task<string> GetAsync(string uri, string token)
+        public async Task<string> GetAsync(string uri, string token = "")
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(token)) throw new ArgumentNullException(nameof(token));
                 var httpClient = CreateOrGetHttpAuthClient(token);
 
                 var response = await httpClient.GetAsync(uri).ConfigureAwait(false);
