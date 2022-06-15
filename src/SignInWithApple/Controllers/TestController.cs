@@ -17,5 +17,12 @@ public class TestController:  ControllerBase
         return $"{++_call}";
     }
 
+    [HttpGet("GetStr")]
+    public string GetStr()
+    {
+        _str += " *";
+        return _str;
+    }
+    private static string _str ="*";
     private static int _call;
 }
