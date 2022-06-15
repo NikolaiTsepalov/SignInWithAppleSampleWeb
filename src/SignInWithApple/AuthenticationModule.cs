@@ -5,6 +5,7 @@ using AspNet.Security.OAuth.Apple;
 using Azure.Security.KeyVault.Secrets;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace MartinCostello.SignInWithApple;
 
@@ -17,12 +18,30 @@ internal static class AuthenticationModule
 
     public static IServiceCollection AddSignInWithApple(this IServiceCollection builder)
     {
+        // Adapted from https://weblog.west-wind.com/posts/2022/Mar/29/Combining-Bearer-Token-and-Cookie-Auth-in-ASPNET
+        string schemeName = "JWT_OR_COOKIE";
+
         return builder
-            .AddAuthentication(options => options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddAuthentication(options =>
+            {
+                options.DefaultScheme = schemeName;
+                options.DefaultChallengeScheme = schemeName;
+            })
             .AddCookie(options =>
             {
                 options.LoginPath = SignInPath;
                 options.LogoutPath = SignOutPath;
+            })
+            .AddJwtBearer()
+            .AddPolicyScheme(schemeName, schemeName, options =>
+            {
+                options.ForwardDefaultSelector = context =>
+                {
+                    string authorization = context.Request.Headers["Authorization"];
+                    return authorization?.StartsWith("Bearer ") == true ?
+                        JwtBearerDefaults.AuthenticationScheme :
+                        CookieAuthenticationDefaults.AuthenticationScheme;
+                };
             })
             .AddApple()
             .Services
@@ -51,6 +70,14 @@ internal static class AuthenticationModule
                         keyId =>
                             environment.ContentRootFileProvider.GetFileInfo($"AuthKey_{keyId}.p8"));
                 }
+            })
+            .Services
+            .AddOptions<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme)
+            .Configure<IConfiguration>((options, configuration) =>
+            {
+                options.Audience = configuration["Apple:ClientId"];
+                options.ClaimsIssuer = "https://appleid.apple.com";
+                options.MetadataAddress = AppleAuthenticationDefaults.MetadataEndpoint;
             })
             .Services;
     }

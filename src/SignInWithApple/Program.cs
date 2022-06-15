@@ -1,6 +1,7 @@
 // Copyright (c) Martin Costello, 2019. All rights reserved.
 // Licensed under the Apache 2.0 license. See the LICENSE file in the project root for full license information.
 
+using System.Security.Claims;
 using MartinCostello.SignInWithApple;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.IdentityModel.Logging;
@@ -21,7 +22,7 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/error")
-       .UseStatusCodePages();
+        .UseStatusCodePages();
 }
 
 app.UseHsts();
@@ -47,14 +48,11 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute("Default", "{controller= Home}/{action=Index}/{id?}");
 });
 
+
 app.MapAuthenticationRoutes();
 app.MapRazorPages();
 
-app.Run();
+app.MapGet("/test", (ClaimsPrincipal user) => $"Hi {user.FindFirstValue(ClaimTypes.NameIdentifier)}")
+    .RequireAuthorization();
 
-namespace MartinCostello.SignInWithApple
-{
-    public partial class Program
-    {
-    }
-}
+app.Run();
