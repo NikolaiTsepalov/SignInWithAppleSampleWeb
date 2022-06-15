@@ -23,7 +23,6 @@ PublishProfiles
 TestResults
 UpgradeLog*.htm
 UpgradeLog*.XML
-PublishProfiles
 *.DotSettings
 *.GhostDoc.xml
 *.cer
@@ -47,3 +46,5 @@ PublishProfiles
 *.sln.ide
 *.suo
 *.user
+/0ToStorageDayly.bat
+/EXCLUDE.txt
