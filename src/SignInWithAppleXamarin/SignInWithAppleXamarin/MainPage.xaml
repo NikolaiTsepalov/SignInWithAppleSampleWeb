@@ -16,7 +16,9 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Button Grid.Row="0" Grid.Column="0"  Text="Anonymous" Clicked="Button_OnClicked"  />
-        <Label Grid.Row="0" Grid.Column="1"  x:Name="info" VerticalTextAlignment="Center" />
+        <Label Grid.Row="0" Grid.Column="1"  x:Name="AnonymousInfo" VerticalTextAlignment="Center" />
+        <Button Grid.Row="1" Grid.Column="0"  Text="Sign-in" Clicked="Signin_OnClicked"  />
+        <Label Grid.Row="1" Grid.Column="1"  x:Name="SigninInfo" VerticalTextAlignment="Center" />
     </Grid>
 
 </ContentPage>

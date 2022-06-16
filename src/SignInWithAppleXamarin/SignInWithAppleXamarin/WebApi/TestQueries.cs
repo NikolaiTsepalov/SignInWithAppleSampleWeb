@@ -10,7 +10,11 @@ namespace SignInWithAppleXamarin.WebApi
         }
         public Task<string> Hello()
         {
-            return  RequestProvider.GetAsync(AddToUrl(nameof(Hello)));
+            return  RequestProvider.GetAsync(AddMethod(nameof(Hello)));
+        }
+        public Task<string> Hi(string token)
+        {
+            return  RequestProvider.GetAsync(AddMethod(nameof(Hi)),token);
         }
 
         protected override string ControllerUrl => "Test";

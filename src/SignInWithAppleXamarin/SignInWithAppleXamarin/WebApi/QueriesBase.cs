@@ -23,7 +23,7 @@ namespace SignInWithAppleXamarin.WebApi
         private readonly string _baseApiUrl;
         protected abstract string ControllerUrl { get; }
 
-        protected string AddToUrl(string method) => $"{_baseApiUrl}/api/{ControllerUrl}/{method}";
+        protected string AddMethod(string method) => $"{_baseApiUrl}/api/{ControllerUrl}/{method}";
         protected readonly IRequestProvider RequestProvider;
     }
 }

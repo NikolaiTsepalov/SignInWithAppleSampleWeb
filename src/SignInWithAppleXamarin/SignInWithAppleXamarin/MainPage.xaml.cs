@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SignInWithAppleXamarin.WebApi;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace SignInWithAppleXamarin
@@ -18,8 +19,24 @@ namespace SignInWithAppleXamarin
 
         private async void Button_OnClicked(object sender, EventArgs e)
         {
-            info.Text = await _testQueries.Hello();
+            AnonymousInfo.Text = await _testQueries.Hello();
         }
+        private async void Signin_OnClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                var webAuthenticatorResult = await AppleSignInAuthenticator.AuthenticateAsync();
+                AuthToken = webAuthenticatorResult?.AccessToken ?? webAuthenticatorResult?.IdToken;
+                SigninInfo.Text = AuthToken;
+            }
+            catch (Exception exception)
+            {
+                SigninInfo.Text = exception.Message;
+            }
+        }
+
+        private string AuthToken;
+
 
         private readonly TestQueries _testQueries;
     }
