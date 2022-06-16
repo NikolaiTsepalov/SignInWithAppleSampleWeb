@@ -12,6 +12,7 @@
         <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
         <AssemblyName>SignInWithAppleXamarin.iOS</AssemblyName>
         <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+        <LangVersion>8</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
         <DebugSymbols>true</DebugSymbols>
@@ -25,6 +26,8 @@
         <MtouchArch>x86_64</MtouchArch>
         <MtouchLink>SdkOnly</MtouchLink>
         <MtouchDebug>true</MtouchDebug>
+        <CodesignKey>Apple Development: Nikolai Tsepalov (59Q276A7GU)</CodesignKey>
+        <CodesignProvision>SignInWithAppleProvisioningProfile</CodesignProvision>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
         <DebugType>none</DebugType>
@@ -35,6 +38,8 @@
         <MtouchLink>SdkOnly</MtouchLink>
         <MtouchArch>x86_64</MtouchArch>
         <ConsolePause>false</ConsolePause>
+        <CodesignKey>Apple Development: Nikolai Tsepalov (59Q276A7GU)</CodesignKey>
+        <CodesignProvision>SignInWithAppleProvisioningProfile</CodesignProvision>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
         <DebugSymbols>true</DebugSymbols>
@@ -46,7 +51,7 @@
         <WarningLevel>4</WarningLevel>
         <ConsolePause>false</ConsolePause>
         <MtouchArch>ARM64</MtouchArch>
-        <CodesignKey>Apple Development: Nikolai Tsepalov (59Q276A7GU)</CodesignKey>
+        <CodesignKey>iPhone Developer</CodesignKey>
         <MtouchDebug>true</MtouchDebug>
         <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
         <MtouchLink>SdkOnly</MtouchLink>
