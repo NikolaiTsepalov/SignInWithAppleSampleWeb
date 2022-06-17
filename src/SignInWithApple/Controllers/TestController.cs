@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
@@ -20,6 +21,11 @@ public class TestController:  ControllerBase
     [HttpGet("Hi")]
     public string Hi()
     {
-        return "Hi man!";
+        var message = string.Empty;
+        foreach (var claim in User.Claims)
+        {
+            message += $"{claim.Type} {claim.Value} ";
+        }
+        return $"Hi {message}!";
     }
 }
